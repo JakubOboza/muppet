@@ -37,7 +37,6 @@ describe Muppet do
   describe "#connection" do
 
     it "should connect to mongodb" do
-      pending
       lambda do
         Muppet.connect!      
       end.should_not raise_error
@@ -48,7 +47,6 @@ describe Muppet do
   describe "#inserting" do
 
     it "should insert values to database" do
-      pending
       lambda do
         user = User.new(name: "Jakub", age: 27 )
         user.save.should be_true
@@ -60,13 +58,13 @@ describe Muppet do
   describe "#quering" do
 
     it "should query all documents from collection" do
-      pending
       User.find_one.should be_a(User)
     end
 
     it "should query first document from collection" do
-      pending
-      User.find.should be_a(Array)
+      users = User.find
+      users.should be_a(Array)
+      users[0].should be_a(User)
     end
 
   end
@@ -74,7 +72,6 @@ describe Muppet do
   describe "#destroy" do
 
     it "should destroy document" do
-      pending
       lambda do
         User.find_one.destroy
       end.should change(User, :count).by(-1)
@@ -83,7 +80,4 @@ describe Muppet do
   end
 
 end
-
-#Connection.new("localhost", 27017, :pool_size => 5, :timeout => 5)
-
 

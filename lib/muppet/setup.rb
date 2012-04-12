@@ -2,9 +2,8 @@ module Muppet
   module Setup
     @@configuration = {
       host: "localhost",
-      pool_size: 5,
-      timeout: 5,
-      port: 27017
+      port: 27017,
+      database: "test"
     }
 
     def configure(&user_config)
@@ -13,6 +12,20 @@ module Muppet
 
     def config
       @@configuration
+    end
+
+    def connect!
+      @@connection = Mongo::Connection.new(@@configuration[:host],
+        @@configuration[:port])
+      @@database = @@connection.db(@@configuration[:database])
+    end
+
+    def database
+      @@database
+    end
+
+    def connection
+      @@connection
     end
 
   end
